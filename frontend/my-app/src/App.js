@@ -10,6 +10,16 @@ import { Layer } from './engine/AnimatedLayers';
 
 function App() {
   
+  //reset grid
+
+  const [gridKey, setGridKey] = useState(0);
+
+  function handleReset() {
+    setGridData(null);
+    setCurrentLayer([]);
+    setPrediction(null);
+    setGridKey(prev => prev + 1); // forces Grid to remount and clear
+}
   // store model params
   const [modelParams, setModelParams]=useState(null);
   const [model, setModel] = useState(null);
@@ -120,7 +130,7 @@ function emphasizeWinner(arr) {
       console.log(`Layer: ${layerResult.layerName}`, layerResult.shape);
 
 
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       const processed=processLayerOutput(layerResult);
       let flatData;
@@ -157,25 +167,14 @@ function emphasizeWinner(arr) {
         setPrediction(predictedDigit);
         setProbabilities(data);
         
+        // delete teonsor
         inputTensor.dispose();
       }
     }
   );
 
-  // delete teonsor
 }
 
-
-  // return (
-  //   <div className="App">
-  //     {/* {model ? <p>Model loaded!</p> : <p>Loading model...</p>} */}
-  //     <Grid onGridChange={setGridData}/>
-  //     <button onClick={handleAnimate}>animate</button>
-  //     {prediction !== null && (
-  //   <h2>Prediction: {prediction}</h2>
-  // )}
-  //   </div>
-  // );
 
   return (
   <div className="app">
@@ -187,10 +186,11 @@ function emphasizeWinner(arr) {
     <main className="main">
 
       <section className="input-panel">
-        <Grid onGridChange={setGridData}/>
+        <Grid key = {gridKey} onGridChange={setGridData}/>
         <button className="animate-btn" onClick={handleAnimate}>
           Animate
         </button>
+        <button className="animate-btn" onClick={handleReset}>Reset</button>
       </section>
 
       <section className="network-panel">
