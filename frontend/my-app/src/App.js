@@ -19,16 +19,18 @@ function App() {
   const [probabilities, setProbabilities] = useState(null);
 
 
-  useEffect(() => {
-    Load_model().then( async loadedModel => {
-      setModel(loadedModel);
-
-      const params = await extractModelParams(loadedModel);
-      console.log("model params: ", params);
-      setModelParams(params);
-      
-    });
-  }, []);
+ useEffect(() => {
+  Load_model().then(async loadedModel => {
+    if (!loadedModel) {
+      console.error("Load_model returned undefined");
+      return;
+    }
+    setModel(loadedModel);
+    const params = await extractModelParams(loadedModel);
+    console.log("model params: ", params);
+    setModelParams(params);
+  });
+}, []);
 
 
   

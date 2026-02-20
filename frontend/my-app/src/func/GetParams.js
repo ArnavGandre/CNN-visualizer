@@ -1,7 +1,7 @@
 import * as tf from "@tensorflow/tfjs";
 
 async function extractModelParams(model){
-
+      if (!model) throw new Error("model is undefined");
     const modelInfo=[];
 
     for(const layer of model.layers){
