@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Load_model } from './model/load_model';
-import { Run_inference, Run_inference_layerwise } from './model/inference';
+import { Run_inference_layerwise } from './model/inference';
 import { Grid } from './vis/Grid'
 import './App.css';
 import * as tf from "@tensorflow/tfjs";
@@ -18,7 +18,7 @@ function App() {
     setGridData(null);
     setCurrentLayer([]);
     setPrediction(null);
-    setGridKey(prev => prev + 1); // forces Grid to remount and clear
+    setGridKey(prev => prev + 1); // force grid into remounting killing and clear
 }
   // store model params
   const [modelParams, setModelParams]=useState(null);
@@ -26,7 +26,7 @@ function App() {
 
   //store prediction states
   const [prediction, setPrediction] = useState(null);
-  const [probabilities, setProbabilities] = useState(null);
+  // const [probabilities, setProbabilities] = useState(null);
 
 
   useEffect(() => {
@@ -45,17 +45,6 @@ function App() {
   
   const [gridData, setGridData] = useState(null);
   
-  //reshape data
-
-  function reshapeTo2D(flat, rows, cols) {
-  const result = [];
-
-  for (let r = 0; r < rows; r++) {
-    result.push(flat.slice(r * cols, (r + 1) * cols));
-  }
-
-  return result;
-}
 
 //normalize array
 function normalizeArray(arr) {
@@ -67,16 +56,6 @@ function normalizeArray(arr) {
   return arr.map(v => (v - min) / (max - min));
 }
 
-//emphazise winner
-function emphasizeWinner(arr) {
-  const maxIndex = argMax(arr);
-
-  return arr.map((v, i) =>
-    i === maxIndex ? 1 : Math.sqrt(v)
-  );
-}
-
-
 
   //grid -> tensor
   function gridToTensor(grid) {
@@ -84,9 +63,8 @@ function emphasizeWinner(arr) {
     
     return tf.tensor4d(flat, [1, 28, 28, 1], 'float32');
   }
-  //animate
 
-  //arg,ax
+  //arg,max
 
   function argMax(arr) {
   let maxIndex = 0;
@@ -165,7 +143,7 @@ function emphasizeWinner(arr) {
         console.log("final probabilities ", visualProbs);
         console.log("predicted digi :", predictedDigit);
         setPrediction(predictedDigit);
-        setProbabilities(data);
+        // setProbabilities(data);
         
         // delete teonsor
         inputTensor.dispose();
