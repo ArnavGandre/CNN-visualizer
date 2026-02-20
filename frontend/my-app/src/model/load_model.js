@@ -1,6 +1,6 @@
 import * as tf from '@tensorflow/tfjs'; 
 
-const MODEL_URL = "./tfjs_model/model.json";
+const MODEL_URL = process.env.PUBLIC_URL + '/tfjs_model/model.json';
 
 async function Load_model(){
 try {
