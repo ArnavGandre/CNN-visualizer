@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 
 function Grid({onGridChange}) {
 
+  const [isDrawing, setIsDrawing] = useState(false)
+
     // state for recognizing drawing or not
 
-    const [isDrawing, setIsDrawing] = useState(false)
 
     // grid array to keep track of drawing
     const [grid, setGrid] = useState(

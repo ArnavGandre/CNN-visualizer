@@ -27,7 +27,8 @@ function App() {
   //store prediction states
   const [prediction, setPrediction] = useState(null);
   // const [probabilities, setProbabilities] = useState(null);
-
+// check loading state:
+  const [loading, setLoading]=useState(true);
 
   useEffect(() => {
     Load_model().then( async loadedModel => {
@@ -36,14 +37,16 @@ function App() {
       const params = await extractModelParams(loadedModel);
       console.log("model params: ", params);
       setModelParams(params);
-      
+
+      setLoading(false);
     });
   }, []);
 
 
-  
-  
   const [gridData, setGridData] = useState(null);
+
+  
+  
   
 
 //normalize array
@@ -153,10 +156,12 @@ function normalizeArray(arr) {
 
 }
 
+  if (loading) return <div>Loading model...</div>;
 
   return (
+    
   <div className="app">
-
+  
     <header className="header">
       <h1>Convolutional Neural Network Visualizer</h1>
     </header>
