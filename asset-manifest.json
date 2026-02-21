@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/CNN-visualizer/static/css/main.ae650c04.css",
-    "main.js": "/CNN-visualizer/static/js/main.a5802fd2.js",
+    "main.js": "/CNN-visualizer/static/js/main.e27618f1.js",
     "static/js/453.fd2f0c4a.chunk.js": "/CNN-visualizer/static/js/453.fd2f0c4a.chunk.js",
     "index.html": "/CNN-visualizer/index.html",
     "main.ae650c04.css.map": "/CNN-visualizer/static/css/main.ae650c04.css.map",
-    "main.a5802fd2.js.map": "/CNN-visualizer/static/js/main.a5802fd2.js.map",
+    "main.e27618f1.js.map": "/CNN-visualizer/static/js/main.e27618f1.js.map",
     "453.fd2f0c4a.chunk.js.map": "/CNN-visualizer/static/js/453.fd2f0c4a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ae650c04.css",
-    "static/js/main.a5802fd2.js"
+    "static/js/main.e27618f1.js"
   ]
 }
