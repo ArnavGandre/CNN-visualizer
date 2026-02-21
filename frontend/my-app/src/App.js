@@ -108,7 +108,7 @@ function normalizeArray(arr) {
       console.log(`Layer: ${layerResult.layerName}`, layerResult.shape);
 
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       const processed=processLayerOutput(layerResult);
       let flatData;
