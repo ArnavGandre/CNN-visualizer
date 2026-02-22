@@ -83,7 +83,17 @@ function Grid({onGridChange}) {
               onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
               onMouseEnter={() => handleMouseEnter(rowIndex,colIndex)}
               onMouseUp={()=>handleMouseUp()}
+
+              onTouchStart={() => handleMouseDown(rowIndex, colIndex)}
+              onTouchEnd={() => handleMouseEnter(rowIndex,colIndex)}
+              onTouchMove={()=>handleMouseUp()}
+
+              // onPointerDown={handleMouseDown(rowIndex, colIndex)}
+              // onPointerEnter={handleMouseEnter(rowIndex, colIndex)}
+              // onMouseUp={handleMouseUp()}
+
               style={{
+                touchAction: "none",
                 width: 15,
                 height: 15,
                 border: "1px solid gray",
