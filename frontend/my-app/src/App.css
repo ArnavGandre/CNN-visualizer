@@ -1,24 +1,23 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
 
 :root {
-  --color-bg:        #000000;
-  --color-primary:   #D72638;
-  --color-secondary: #E6AACE;
-  --color-panel:     #0a0a0a;
-  --color-border:    rgba(255, 255, 255, 0.07);
-  --color-text:      #f5f5f5;
-  --color-muted:     rgba(245, 245, 245, 0.4);
-  --neuron-idle:     #1a1a1a;
-  --neuron-active:   var(--color-primary);
-  --neuron-glow:     var(--color-secondary);
+  --color-bg: #000000;
+  --color-primary: #d72638;
+  --color-secondary: #e6aace;
+  --color-panel: #0a0a0a;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-text: #f5f5f5;
+  --color-muted: rgba(245, 245, 245, 0.4);
+  --neuron-idle: #1a1a1a;
+  --neuron-active: var(--color-primary);
+  --neuron-glow: var(--color-secondary);
   --transition-fast: 120ms linear;
-  --transition-med:  240ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-med: 240ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -27,11 +26,14 @@
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
-
 
 .app {
   min-height: 100vh;
@@ -47,7 +49,7 @@ body {
 }
 
 .header h1 {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.22em;
@@ -70,14 +72,12 @@ body {
   gap: 32px;
 }
 
-
 .input-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
 }
-
 
 .input-panel > *:first-child {
   border-radius: 16px;
@@ -90,11 +90,11 @@ body {
 
 .animate-btn {
   padding: 13px 48px;
-  border-radius: 1px;       /* pill */
+  border-radius: 1px; /* pill */
   border: none;
   background: var(--color-primary);
   /* color: #fff; */
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -104,7 +104,7 @@ body {
 }
 
 .animate-btn::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -123,7 +123,6 @@ body {
   box-shadow: none;
 }
 
-
 .network-panel {
   width: 100%;
   display: flex;
@@ -137,8 +136,6 @@ body {
   gap: 10px;
   align-items: center;
 }
-
-
 
 .neuron {
   width: 14px;
@@ -160,7 +157,6 @@ body {
     0 0 16px var(--neuron-glow);
 }
 
-
 .output-panel {
   width: 100%;
   padding: 20px 24px 28px;
@@ -168,7 +164,7 @@ body {
 }
 
 .output-panel h2 {
-  font-family: 'Space Mono', monospace;
+  font-family: "Space Mono", monospace;
   font-size: 18px;
   font-weight: 400;
   letter-spacing: 0.06em;
@@ -176,7 +172,7 @@ body {
 }
 
 .output-panel h2::before {
-  content: 'prediction → ';
+  content: "prediction → ";
   color: var(--color-muted);
   font-size: 13px;
   letter-spacing: 0.12em;
@@ -184,10 +180,9 @@ body {
 
 .network-panel {
   display: flex;
-  flex-direction: column;    
+  flex-direction: column;
   align-items: center;
   gap: 24px;
   padding: 20px;
-  overflow-y: auto;         
+  overflow-y: auto;
 }
-

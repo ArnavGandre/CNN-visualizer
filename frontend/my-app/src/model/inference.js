@@ -5,8 +5,8 @@ async function Run_inference(model, inputTensor) {
     const predictions = model.predict(inputTensor);
     const data = await predictions.data();
     predictions.dispose();
-    console.log("Predictions:", data)   ;
-    console.log("model shape "+model.layers)
+    console.log("Predictions:", data);
+    console.log("model shape " + model.layers);
     return data;
   } catch (e) {
     console.error("failed while inference :", e);
@@ -21,7 +21,7 @@ async function Run_inference_layerwise(model, inputTensor, onLayerResult) {
 
     const intermediateModel = tf.model({
       inputs: model.inputs,
-      outputs: layer.output
+      outputs: layer.output,
     });
 
     const output = intermediateModel.predict(currentInput);
@@ -32,12 +32,12 @@ async function Run_inference_layerwise(model, inputTensor, onLayerResult) {
       layerName: layer.name,
       layerType: layer.getClassName(),
       shape: shape,
-      data: data
+      data: data,
     });
 
     output.dispose();
   }
 }
 
-export {Run_inference};
-export {Run_inference_layerwise};
+export { Run_inference };
+export { Run_inference_layerwise };

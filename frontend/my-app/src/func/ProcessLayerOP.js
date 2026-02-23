@@ -1,6 +1,3 @@
-import * as tf from "@tensorflow/tfjs";
-
-
 export function processLayerOutput(layerResult) {
   const flat = Array.from(layerResult.data);
   const shape = layerResult.shape;
@@ -27,7 +24,7 @@ function normalizeArray(arr) {
 
   if (max === min) return arr.map(() => 0);
 
-  return arr.map(v => (v - min) / (max - min));
+  return arr.map((v) => (v - min) / (max - min));
 }
 
 function reshapeTo2D(flat, rows, cols) {
