@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Load_model } from "./model/load_model";
-import { Run_inference_layerwise } from "./model/inference";
+import { runInferenceLayerwise} from "./model/inference";
 import { Grid } from "./vis/Grid";
 import "./App.css";
 import * as tf from "@tensorflow/tfjs";
 import { processLayerOutput } from "./func/ProcessLayerOP";
 import { Layer } from "./engine/AnimatedLayers";
-import { AnimLayer } from "./vis/NetworkScene";
+// import { AnimLayer } from "./vis/NetworkScene";
 
 function App() {
   //reset grid
@@ -36,22 +36,22 @@ function App() {
       setLoading(false);
     });
   }, []);
-
-  //normalize array
-  function normalizeArray(arr) {
-    const min = Math.min(...arr);
-    const max = Math.max(...arr);
-
-    if (max === min) return arr.map(() => 0); // avoid divide by zero
-
-    return arr.map((v) => (v - min) / (max - min));
-  }
-
   //grid -> tensor
   function gridToTensor(grid) {
     const flat = grid.flat().map((v) => Number(v));
 
     return tf.tensor4d(flat, [1, 28, 28, 1], "float32");
+  }
+  //normalize array
+  function normalizeArray(arr) {
+    // cche min and max values to calculate once not again again for each element
+    const min = Math.min(...arr);
+    const max = Math.max(...arr);
+
+    if (max === min) return arr.map(() => 0); // avoid divide by zero
+
+    const range = max - min;
+    return arr.map((v) => (v - min) / range);
   }
 
   //arg,max for cleaner visualization
@@ -72,16 +72,13 @@ function App() {
   //handle animation
 
   const [currentLayer, setCurrentLayer] = useState([]);
+
   async function handleAnimate() {
     setCurrentLayer([]);
 
     const inputTensor = gridToTensor(gridData);
-    
-    await Run_inference_layerwise(model, inputTensor, async (layerResult) => {
-      console.log(`Layer: ${layerResult.layerName}`, layerResult.shape);
 
-      await new Promise((resolve) => setTimeout(resolve, 200));
-
+    await runInferenceLayerwise(model, inputTensor, async (layerResult) => {
       const processed = processLayerOutput(layerResult);
       let flatData;
 
@@ -97,7 +94,7 @@ function App() {
         ...prev,
         {
           ...layerResult,
-          activations: normalized,
+          activations: normalized, // use raw data for visualization, can be normalized if needed
         },
       ]);
 
@@ -106,17 +103,17 @@ function App() {
 
         const predictedDigit = argMax(data);
 
-        
         // keeping this console.log for later animation purposes.
-        
-        const visualProbs = normalizeArray(data);
-        console.log("final probabilities ", visualProbs);
-        console.log("predicted digi :", predictedDigit);
-        
+
+        // const visualProbs = normalizeArray(data);
+        // console.log("final probabilities ", visualProbs);
+        // console.log("predicted digi :", predictedDigit);
+
         setPrediction(predictedDigit);
-        inputTensor.dispose();
       }
     });
+
+    inputTensor.dispose();
   }
 
   if (loading) return <div>Loading model...</div>;
@@ -124,23 +121,25 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>Convolutional Neural Network Visualizer</h1>
+        <h1>Convolutional Neural Network Visualizer.</h1>
       </header>
 
       <main className="main">
-        <section className="input-panel">
+        <section className="grid">
           <Grid key={gridKey} onGridChange={setGridData} />
-          <button className="animate-btn" onClick={handleAnimate}>
-            Animate
-          </button>
-          <button className="animate-btn" onClick={handleReset}>
-            Reset
-          </button>
+          <div className="buttons">
+            <button className="animate-btn" onClick={handleAnimate}>
+              animate.
+            </button>
+            <button className="animate-btn" onClick={handleReset}>
+              reset.
+            </button>
+          </div>
         </section>
 
         <section className="network-panel"></section>
       </main>
-      <AnimLayer/>
+      {/* <AnimLayer/> */}
       <section className="network-panel">
         {currentLayer.map((layer, i) => (
           <Layer

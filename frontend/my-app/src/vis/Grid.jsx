@@ -38,6 +38,7 @@ function Grid({ onGridChange }) {
       if (r < 0 || r >= 28 || c < 0 || c >= 28) return;
       newGrid[r][c] = Math.min(1, newGrid[r][c] + value);
     });
+    
     setGrid(newGrid);
     onGridChange?.(newGrid);
     console.log(newGrid);
