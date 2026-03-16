@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
 
 :root {
-  --color-bg: #000000;
-  --color-primary: #d72638;
-  --color-secondary: #e6aace;
-  --color-panel: #0a0a0a;
-  --color-border: rgba(255, 255, 255, 0.07);
+  --color-bg: #040403;
+  --color-primary: #F3D9DC;
+  --color-secondary: #D7BEA8;
+  --color-panel: #040403;
+  --color-border: #F3D9DC;
   --color-text: #f5f5f5;
-  --color-muted: rgba(245, 245, 245, 0.4);
-  --neuron-idle: #1a1a1a;
+  --color-muted: #F3D9DC;
+  --neuron-idle: #040403;
   --neuron-active: var(--color-primary);
   --neuron-glow: var(--color-secondary);
   --transition-fast: 120ms linear;
@@ -79,15 +79,6 @@ body {
   gap: 24px;
 }
 
-.input-panel > *:first-child {
-  border-radius: 16px;
-  box-shadow:
-    0 0 0 1px var(--color-border),
-    0 0 40px rgba(215, 38, 56, 0.08),
-    0 8px 48px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-}
-
 .animate-btn {
   padding: 13px 48px;
   border-radius: 1px; /* pill */
@@ -114,8 +105,8 @@ body {
 .animate-btn:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 0 24px rgba(255, 0, 25, 0.5),
-    0 0 48px rgba(255, 0, 0, 0.2);
+    0 0 10px #D7BEA8,
+    0 0 24px #d0b195;
 }
 
 .animate-btn:active {

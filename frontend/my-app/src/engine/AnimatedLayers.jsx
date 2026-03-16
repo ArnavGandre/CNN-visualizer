@@ -1,5 +1,11 @@
 export function Layer({ data, label, shape, isLast }) {
-  if (!data || data.length === 0) return null;
+  if (!data || data.length === 0){
+    return(
+      <div>
+        <p>please draw a digit.</p>
+      </div>
+    )
+  };
   if (isLast) {
     const cols =
       shape && shape.length === 4
@@ -22,6 +28,7 @@ export function Layer({ data, label, shape, isLast }) {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "center",
+            // 243, 217, 220
           }}
         >
           {data.map((value, i) => (
@@ -30,7 +37,7 @@ export function Layer({ data, label, shape, isLast }) {
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: `rgb(${Math.round(value * 255)}, 0, 0)`,
+                backgroundColor: `hsl(354, 60%, ${Math.round(value * 60) + 20}%)`,
                 opacity: Math.max(value, 0.08),
               }}
             >
@@ -70,7 +77,7 @@ export function Layer({ data, label, shape, isLast }) {
               style={{
                 width: 8,
                 height: 8,
-                backgroundColor: `rgb(${Math.round(value * 255)}, 0, 0)`,
+                backgroundColor: `hsl(354, 60%, ${Math.round(value * 60) + 1}%)`,
                 opacity: Math.max(value, 0.08),
               }}
             />

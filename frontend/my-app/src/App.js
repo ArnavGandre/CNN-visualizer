@@ -6,6 +6,7 @@ import "./App.css";
 import * as tf from "@tensorflow/tfjs";
 import { processLayerOutput } from "./func/ProcessLayerOP";
 import { Layer } from "./engine/AnimatedLayers";
+import { AnimLayer } from "./vis/NetworkScene";
 
 function App() {
   //reset grid
@@ -75,7 +76,7 @@ function App() {
     setCurrentLayer([]);
 
     const inputTensor = gridToTensor(gridData);
-
+    
     await Run_inference_layerwise(model, inputTensor, async (layerResult) => {
       console.log(`Layer: ${layerResult.layerName}`, layerResult.shape);
 
@@ -139,6 +140,7 @@ function App() {
 
         <section className="network-panel"></section>
       </main>
+      <AnimLayer/>
       <section className="network-panel">
         {currentLayer.map((layer, i) => (
           <Layer

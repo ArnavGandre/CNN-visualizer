@@ -84,7 +84,7 @@ function Grid({ onGridChange }) {
                 touchAction: "none",
                 width: 15,
                 height: 15,
-                border: "1px solid gray",
+                border: "0.1px solid gray",
                 backgroundColor: `rgb(${cell * 255}, ${cell * 255}, ${cell * 255})`,
                 userSelect: "none",
               }}
