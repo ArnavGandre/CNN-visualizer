@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useRef } from "react";
-
-import { Layer } from "../engine/AnimatedLayers";
+import * as tf from "@tensorflow/tfjs";
+import { Grid } from "./Grid";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-// import { createRoot } from 'react-dom/client'
 
 
-export function AnimLayer({ data, label, shape, isLast }) {
-  const canvasRef = useRef(null);
+export function AnimLayer({ data }) {
+  <Grid></Grid>
+  const canvasRef = useRef();
   useEffect(() => {
     const w = window.innerWidth;
     const h = window.innerHeight;
@@ -29,3 +29,5 @@ export function AnimLayer({ data, label, shape, isLast }) {
 
   return <canvas ref={canvasRef} />;
 }
+
+export default AnimLayer;

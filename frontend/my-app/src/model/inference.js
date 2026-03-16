@@ -14,9 +14,7 @@ import * as tf from "@tensorflow/tfjs";
 // }
 
 async function runInferenceLayerwise(model, inputTensor, onLayerResult) {
-  const results = [];
   let currentInput = inputTensor;
-  
 
   for (let i = 0; i < model.layers.length; i++) {
     const layer = model.layers[i];
@@ -37,16 +35,8 @@ async function runInferenceLayerwise(model, inputTensor, onLayerResult) {
       data: data,
     });
 
-    results.push({
-      layerName: layer.name,
-      layerType: layer.getClassName(),
-      shape: shape,
-      data: data,
-    })
-    
     output.dispose();
   }
-  return results;
 }
 
 // export { Run_inference };
