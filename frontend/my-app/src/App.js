@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Load_model } from "./model/load_model";
-import { runInferenceLayerwise} from "./model/inference";
+import { runInferenceLayerwise } from "./model/inference";
 import { Grid } from "./vis/Grid";
 import "./App.css";
 import * as tf from "@tensorflow/tfjs";
 import { processLayerOutput } from "./func/ProcessLayerOP";
 import { Layer } from "./engine/AnimatedLayers";
-// import { AnimLayer } from "./vis/NetworkScene";
+import { AnimLayer } from "./vis/NetworkScene";
 
 function App() {
   //reset grid
@@ -75,46 +75,12 @@ function App() {
 
   async function handleAnimate() {
     setCurrentLayer([]);
-
     const inputTensor = gridToTensor(gridData);
-
-    await runInferenceLayerwise(model, inputTensor, async (layerResult) => {
-      const processed = processLayerOutput(layerResult);
-      let flatData;
-
-      if (Array.isArray(processed)) {
-        flatData = processed.flat(Infinity);
-      } else {
-        flatData = Array.from(processed);
-      }
-
-      const normalized = normalizeArray(flatData);
-
-      setCurrentLayer((prev) => [
-        ...prev,
-        {
-          ...layerResult,
-          activations: normalized, // use raw data for visualization, can be normalized if needed
-        },
-      ]);
-
-      if (layerResult.shape.length === 2 && layerResult.shape[1] === 10) {
-        const data = Array.from(layerResult.data);
-
-        const predictedDigit = argMax(data);
-
-        // keeping this console.log for later animation purposes.
-
-        // const visualProbs = normalizeArray(data);
-        // console.log("final probabilities ", visualProbs);
-        // console.log("predicted digi :", predictedDigit);
-
-        setPrediction(predictedDigit);
-      }
-    });
-
+    const allLayers = await runInferenceLayerwise(model, inputTensor);
+    setCurrentLayer(allLayers);
     inputTensor.dispose();
   }
+  // const dataFinal = handleAnimate();
 
   if (loading) return <div>Loading model...</div>;
 
@@ -139,8 +105,12 @@ function App() {
 
         <section className="network-panel"></section>
       </main>
-      {/* <AnimLayer/> */}
-      <section className="network-panel">
+      <AnimLayer
+        layers={currentLayer}
+        gridData={gridData}
+        prediction={prediction}
+      />
+      {/* <section className="network-panel">
         {currentLayer.map((layer, i) => (
           <Layer
             key={i}
@@ -149,8 +119,9 @@ function App() {
             shape={layer.shape}
             isLast={i === currentLayer.length - 1}
           />
-        ))}
-      </section>
+        ))} 
+      </section> */}
+
       <footer className="output-panel">
         {prediction !== null && <h2>{prediction}</h2>}
       </footer>

@@ -13,10 +13,12 @@ import * as tf from "@tensorflow/tfjs";
 //   }
 // }
 
-async function runInferenceLayerwise(model, inputTensor, onLayerResult) {
+async function runInferenceLayerwise(model, inputTensor) {
   let currentInput = inputTensor;
+  const dataObj = [];
 
   for (let i = 0; i < model.layers.length; i++) {
+
     const layer = model.layers[i];
 
     const intermediateModel = tf.model({
@@ -28,15 +30,19 @@ async function runInferenceLayerwise(model, inputTensor, onLayerResult) {
     const data = await output.data();
     const shape = output.shape;
 
-    await onLayerResult({
+
+    dataObj.push({
       layerName: layer.name,
       layerType: layer.getClassName(),
       shape: shape,
       data: data,
     });
-
+    
+    
     output.dispose();
   }
+  // console.log("Inference complete. Layer outputs:", dataObj);
+  return dataObj;
 }
 
 // export { Run_inference };
