@@ -17,7 +17,6 @@ function argMax(arr) {
 }
 
 export function AnimLayer({ layers, gridData }) {
-
   const canvasRef = useRef();
 
   useEffect(() => {
@@ -122,7 +121,7 @@ export function AnimLayer({ layers, gridData }) {
 
       const material = new THREE.PointsMaterial({
         // bigger points for fco last layer sanswer layer
-        size: isFco ? 2.0 : 0.8, 
+        size: isFco ? 2.0 : 0.8,
         vertexColors: true,
       });
       const points = new THREE.Points(geometry, material);
@@ -137,7 +136,6 @@ export function AnimLayer({ layers, gridData }) {
       "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
 
       (font) => {
-
         for (let i = 0; i < layers.length; i++) {
           const { cols } = getRowsCols(layers[i]);
           const isFco = layers[i].layerName === "fco";
@@ -157,7 +155,6 @@ export function AnimLayer({ layers, gridData }) {
           // for fco layerad  digit labels and prediction text
           if (isFco) {
             for (let d = 0; d < 10; d++) {
-
               const digitGeo = new TextGeometry(String(d), {
                 font,
                 size: 0.8,
@@ -171,7 +168,6 @@ export function AnimLayer({ layers, gridData }) {
               const digitMesh = new THREE.Mesh(digitGeo, digitMat);
               digitMesh.position.set(d - 5, i * -spacing - 2.5, 0);
               scene.add(digitMesh);
-
             }
 
             // big prediction text
@@ -183,10 +179,9 @@ export function AnimLayer({ layers, gridData }) {
 
             const predMat = new THREE.MeshBasicMaterial({ color: 0xf3d9dc });
             const predMesh = new THREE.Mesh(predGeo, predMat);
-            
+
             predMesh.position.set(-10, i * -spacing - 6, 0);
             scene.add(predMesh);
-          
           }
         }
       },

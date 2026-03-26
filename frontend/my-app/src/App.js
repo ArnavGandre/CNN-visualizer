@@ -4,8 +4,6 @@ import { runInferenceLayerwise } from "./model/inference";
 import { Grid } from "./vis/Grid";
 import "./App.css";
 import * as tf from "@tensorflow/tfjs";
-import { processLayerOutput } from "./func/ProcessLayerOP";
-import { Layer } from "./engine/AnimatedLayers";
 import { AnimLayer } from "./vis/NetworkScene";
 
 function App() {
@@ -102,25 +100,12 @@ function App() {
             </button>
           </div>
         </section>
-
-        <section className="network-panel"></section>
       </main>
       <AnimLayer
         layers={currentLayer}
         gridData={gridData}
         prediction={prediction}
       />
-      {/* <section className="network-panel">
-        {currentLayer.map((layer, i) => (
-          <Layer
-            key={i}
-            data={layer.activations}
-            label={layer.layerName}
-            shape={layer.shape}
-            isLast={i === currentLayer.length - 1}
-          />
-        ))} 
-      </section> */}
 
       <footer className="output-panel">
         {prediction !== null && <h2>{prediction}</h2>}
